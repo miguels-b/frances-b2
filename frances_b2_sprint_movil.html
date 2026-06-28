@@ -1,0 +1,398 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Francés B2">
+<meta name="theme-color" content="#0E1030">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E1030'/%3E%3Ctext x='50' y='70' font-size='52' font-family='monospace' font-weight='700' text-anchor='middle' fill='%23F2C14E'%3EB2%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230E1030'/%3E%3Ctext x='50' y='70' font-size='52' font-family='monospace' font-weight='700' text-anchor='middle' fill='%23F2C14E'%3EB2%3C/text%3E%3C/svg%3E">
+<title>Francés B2 · Sprint</title>
+<style>
+  :root{
+    --ink:#0E1030; --ink2:#15184A; --panel:#191D55; --panel2:#1F2566;
+    --line:#2C326F; --txt:#ECEBFA; --mut:#9A98C8; --mut2:#7C7AAE;
+    --f1:#5B8DEF; --f2:#8B7CF0; --f3:#FF9F45; --f4:#FF5C66;
+    --gold:#F2C14E; --done:#3DDC8B;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:
+      radial-gradient(1200px 600px at 80% -10%, #20245f 0%, transparent 60%),
+      var(--ink);color:var(--txt);font-family:var(--sans);line-height:1.5;
+      -webkit-font-smoothing:antialiased;padding:28px 18px 80px}
+  .wrap{max-width:880px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin:0 0 8px}
+  h1{font-size:clamp(26px,5vw,40px);font-weight:800;letter-spacing:-.02em;margin:0 0 4px;line-height:1.05}
+  h1 .fr{color:var(--mut)}
+  .motiv{font-family:var(--mono);font-size:13px;color:var(--gold);margin:14px 0 0;min-height:18px}
+
+  /* HERO COUNTDOWN */
+  .hero{margin:22px 0 10px;padding:22px;border:1px solid var(--line);border-radius:18px;
+        background:linear-gradient(180deg,var(--panel),var(--ink2));position:relative;overflow:hidden}
+  .hero .lab{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--mut)}
+  .count{font-family:var(--mono);font-weight:700;font-size:clamp(64px,18vw,128px);line-height:.9;
+         letter-spacing:-.04em;margin:2px 0 0;background:linear-gradient(180deg,#fff,#b9c4ff);
+         -webkit-background-clip:text;background-clip:text;color:transparent}
+  .count.hot{background:linear-gradient(180deg,#ffd0d0,var(--f4));-webkit-background-clip:text;background-clip:text}
+  .count-sub{font-family:var(--mono);font-size:13px;color:var(--mut);margin-top:6px}
+  .hero .exam{position:absolute;top:18px;right:20px;text-align:right}
+  .hero .exam b{display:block;font-family:var(--mono);font-size:20px}
+  .hero .exam span{font-size:11px;color:var(--mut);font-family:var(--mono);letter-spacing:.08em}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:6px}
+  .stat .v{font-family:var(--mono);font-size:26px;font-weight:700;margin-top:4px;letter-spacing:-.02em}
+  .stat .v small{font-size:13px;color:var(--mut);font-weight:400}
+  .flame{width:13px;height:13px;display:inline-block}
+
+  /* LEVEL BAR */
+  .lvl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:0 0 14px}
+  .lvl-top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:13px}
+  .lvl-name{font-weight:700;color:var(--gold);font-size:16px}
+  .lvl-next{color:var(--mut);font-size:12px}
+  .track{height:10px;background:#0e1138;border-radius:99px;margin-top:10px;overflow:hidden;border:1px solid var(--line)}
+  .fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--f1),var(--f2) 45%,var(--f3) 78%,var(--f4));transition:width .5s ease}
+
+  /* BADGES */
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+  .badge{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:7px 11px;border-radius:99px;
+         border:1px dashed var(--line);color:var(--mut2);background:#10133b}
+  .badge.on{border-style:solid;border-color:var(--gold);color:#1a1206;background:linear-gradient(180deg,#ffe39a,var(--gold));font-weight:700}
+
+  /* METHOD */
+  details.method{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin:0 0 18px;overflow:hidden}
+  details.method>summary{cursor:pointer;list-style:none;padding:14px 16px;font-family:var(--mono);font-size:13px;
+         letter-spacing:.1em;text-transform:uppercase;color:var(--txt);display:flex;justify-content:space-between;align-items:center}
+  details.method>summary::-webkit-details-marker{display:none}
+  details.method>summary .chev{transition:transform .2s;color:var(--mut)}
+  details.method[open]>summary .chev{transform:rotate(90deg)}
+  .method-body{padding:4px 16px 18px;border-top:1px solid var(--line)}
+  .method-body h4{font-size:13px;margin:16px 0 6px;color:var(--f1);font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase}
+  .method-body ul{margin:0;padding-left:18px}
+  .method-body li{margin:5px 0;font-size:14px;color:#d6d5f0}
+  .method-body li b{color:var(--txt)}
+  .rule{color:var(--f4);font-weight:700}
+
+  /* LEGEND */
+  .legend{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 10px;font-family:var(--mono);font-size:11px;color:var(--mut);letter-spacing:.04em}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:4px;display:inline-block}
+
+  /* WEEKS */
+  .week{border:1px solid var(--line);border-radius:14px;margin:0 0 12px;background:var(--ink2);overflow:hidden}
+  .week-head{padding:11px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;
+             border-left:4px solid var(--f1);background:var(--panel)}
+  .week-head .wn{font-family:var(--mono);font-weight:700;font-size:13px;letter-spacing:.04em}
+  .week-head .wf{font-size:12px;color:var(--mut);text-align:right;flex:1}
+  .week-head .wdone{font-family:var(--mono);font-size:11px;color:var(--mut);white-space:nowrap}
+  .days{padding:6px}
+  .day{display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:9px}
+  .day+.day{border-top:1px solid #1a1e52}
+  .day .cb{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;border-radius:7px;border:2px solid var(--line);
+           background:#10133b;cursor:pointer;position:relative;transition:background .15s,border-color .15s}
+  .day .cb:hover{border-color:var(--mut)}
+  .day .cb:checked{background:var(--done);border-color:var(--done)}
+  .day .cb:checked::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:11px;border:solid #06231a;border-width:0 3px 3px 0;transform:rotate(45deg)}
+  .day .cb:focus-visible{outline:2px solid var(--f1);outline-offset:2px}
+  .day .date{font-family:var(--mono);font-size:13px;min-width:74px;flex:none}
+  .day .date b{color:var(--txt)}
+  .day .hrs{font-family:var(--mono);font-size:11px;color:var(--ink);background:var(--f1);padding:2px 7px;border-radius:99px;flex:none;font-weight:700}
+  .day .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:99px;flex:none;border:1px solid var(--line);color:var(--mut)}
+  .day .tag.tutor{color:var(--f2);border-color:var(--f2)}
+  .day .tag.big{color:var(--gold);border-color:var(--gold);font-weight:700}
+  .day .note{flex:1;min-width:0;background:transparent;border:none;border-bottom:1px dashed #2a2f6b;color:var(--txt);
+             font-family:var(--sans);font-size:13px;padding:3px 2px;outline:none}
+  .day .note::placeholder{color:#5a5896}
+  .day .note:focus{border-bottom-color:var(--f1)}
+  .day.done{opacity:.62}
+  .day.done .date b,.day.done .note{text-decoration:line-through;text-decoration-color:var(--mut2)}
+  .day.weekend{background:#161a4a}
+  .day.exam{background:linear-gradient(90deg,rgba(255,92,102,.16),transparent)}
+
+  footer{margin-top:26px;font-family:var(--mono);font-size:11px;color:var(--mut2);text-align:center;letter-spacing:.04em;line-height:1.7}
+
+  @media(max-width:640px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .hero .exam{position:static;text-align:left;margin-top:12px}
+    .day{flex-wrap:wrap}
+    .day .note{flex-basis:100%;order:5;margin-left:34px}
+    .day .date{min-width:0}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Compte à rebours · A2 → B2</p>
+  <h1>Sprint Francés <span class="fr">jusqu'au DELF</span></h1>
+  <p class="motiv" id="motiv"></p>
+
+  <div class="hero">
+    <div class="exam">
+      <b id="examdate">20 oct</b>
+      <span>EXAMEN B2</span>
+    </div>
+    <div class="lab">Días restantes</div>
+    <div class="count" id="count">—</div>
+    <div class="count-sub" id="countsub"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Días tachados</div><div class="v"><span id="sDone">0</span><small> / <span id="sTotal">0</span></small></div></div>
+    <div class="stat"><div class="k"><svg class="flame" viewBox="0 0 24 24" fill="#FF5C66"><path d="M12 2c1 3-2 4-2 7a2 2 0 104 0c0-1 0-2-1-3 3 1 5 4 5 8a8 8 0 11-16 0c0-3 2-5 4-7 1 2 2 3 3 3 1-2-1-3-1-5z"/></svg> Racha</div><div class="v"><span id="sStreak">0</span><small> d</small></div></div>
+    <div class="stat"><div class="k">Horas hechas</div><div class="v"><span id="sHours">0</span><small> / ~400</small></div></div>
+    <div class="stat"><div class="k">Progreso</div><div class="v"><span id="sPct">0</span><small>%</small></div></div>
+  </div>
+
+  <div class="lvl">
+    <div class="lvl-top">
+      <span class="lvl-name" id="lvlName">Débutant · A2</span>
+      <span class="lvl-next" id="lvlNext"></span>
+    </div>
+    <div class="track"><div class="fill" id="lvlFill"></div></div>
+  </div>
+
+  <div class="badges" id="badges"></div>
+
+  <details class="method">
+    <summary>Metodología fija · cómo se gana cada día <span class="chev">›</span></summary>
+    <div class="method-body">
+      <h4>Qué cuenta para tachar el día</h4>
+      <ul>
+        <li>Haber hecho el <b>bloque activo de tarde</b> (gramática + producción + tutor). El coche y las fichas suman, pero <b>solos no valen</b> para tachar.</li>
+      </ul>
+      <h4>Horas (te las marco yo en cada día)</h4>
+      <ul>
+        <li><b>Entre semana: 3 h</b> = 2 h de bloque activo por la tarde + ~1 h repartida (coche + fichas).</li>
+        <li><b>Fin de semana: 5 h</b> de trabajo profundo (escritura + tutor + inmersión).</li>
+        <li>Total objetivo ≈ <b>400 h</b>, que es lo que cuesta el salto A2 → B2.</li>
+      </ul>
+      <h4>El día, pieza a pieza</h4>
+      <ul>
+        <li><b>Coche (35' ida + 20' vuelta):</b> escucha <b>activa</b> y graduada (InnerFrench, Coffee Break French, News in Slow French), repitiendo en alto. No de fondo.</li>
+        <li><b>Trabajo:</b> francés de fondo solo en tareas mecánicas, nunca en las de concentración. No cuenta como estudio.</li>
+        <li><b>Al llegar:</b> 2 fichas de gramática/vocabulario (~15').</li>
+        <li><b>Tarde (2 h, el motor):</b> gramática + producción escrita/oral + tutor.</li>
+        <li><b>Tutor (italki/Preply) 3-4×/semana</b> (mar y jue fijos + 1-2 más): innegociable, es lo que sube el oral, que es lo que evalúa el DELF.</li>
+      </ul>
+      <h4>Reglas anti-procrastinación</h4>
+      <ul>
+        <li><span class="rule">Acción antes que motivación.</span> Empieza primero, las ganas vienen después.</li>
+        <li><span class="rule">Protege la transición.</span> Del gym, ducha y directo al escritorio. No te sientes ni te tumbes antes.</li>
+        <li><span class="rule">Primer paso minúsculo.</span> Solo te comprometes a abrir el libro y un ejercicio. Casi nunca pararás ahí.</li>
+        <li><span class="rule">Nunca falles dos días seguidos.</span> Un día malo no rompe nada; dos seguidos sí.</li>
+      </ul>
+      <h4>Decisión B2 vs B1</h4>
+      <ul>
+        <li>Simulacro completo el <b>13 sep</b>. Si vas sobrado, B2 el 20 oct. Si vas justo, <b>mueve el B2</b> a nov/dic, no te bajes a B1 (vale poco).</li>
+      </ul>
+    </div>
+  </details>
+
+  <div class="legend">
+    <span><i class="dot" style="background:var(--f1)"></i> Fase 1 · Reactivar base</span>
+    <span><i class="dot" style="background:var(--f2)"></i> Fase 2 · Construir B2</span>
+    <span><i class="dot" style="background:var(--f3)"></i> Fase 3 · Consolidar + DELF</span>
+    <span><i class="dot" style="background:var(--f4)"></i> Fase 4 · Modo examen</span>
+  </div>
+
+  <div id="weeks"></div>
+
+  <footer>
+    Se guarda solo en este dispositivo cada vez que tachas o escribes.<br>
+    Action avant motivation · un jour à la fois · ne casse pas la chaîne.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY="frances_b2_sprint_v1";
+  var DAY=86400000;
+  var START=new Date(2026,5,29);   // lun 29 jun 2026
+  var END=new Date(2026,9,21);     // mié 21 oct 2026 (incl.)
+  var EXAM=new Date(2026,9,20);    // mar 20 oct 2026 (B2)
+  var DOW=["dom","lun","mar","mié","jue","vie","sáb"];
+  var MON=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  var motivs=[
+    "Action avant motivation. Empieza, las ganas vienen luego.",
+    "Ne casse pas la chaîne. No rompas la racha.",
+    "Un jour à la fois. Un día cada vez.",
+    "El que disfruta, mete las horas sin sufrir.",
+    "Petit pas, grand sprint. Abre el libro y un ejercicio.",
+    "C'est en parlant qu'on apprend. Habla cada día.",
+    "Octubre llega. Que te pille listo."
+  ];
+  var PHASES=[
+    {to:new Date(2026,6,19), n:1, c:"var(--f1)", name:"Fase 1 · Reactivar base",
+     focus:"Tiempos (présent, passé composé, imparfait, futur), vocabulario núcleo, conectores. Hablar desde el día 1."},
+    {to:new Date(2026,7,30), n:2, c:"var(--f2)", name:"Fase 2 · Construir B2",
+     focus:"Subjonctif, conditionnel, pronombres (relatifs, COD/COI, y/en), conectores avanzados, argumentar. Producción intensa."},
+    {to:new Date(2026,8,27), n:3, c:"var(--f3)", name:"Fase 3 · Consolidar + DELF",
+     focus:"Essai argumenté, oral (monologue + debate), audio auténtico (noticias), estrategias. Simulacro el 13 sep."},
+    {to:new Date(2026,9,21), n:4, c:"var(--f4)", name:"Fase 4 · Modo examen",
+     focus:"DELF B2 completos cronometrados (CO/CE/PE/PO), pulir débiles, últimos días repaso ligero + descanso."}
+  ];
+  var LEVELS=[
+    {min:0,name:"Débutant · A2"},{min:10,name:"A2+"},{min:25,name:"B1−"},
+    {min:45,name:"B1"},{min:65,name:"B1+"},{min:85,name:"B2−"},{min:105,name:"B2 · prêt"}
+  ];
+  var BADGES=[
+    {d:10,t:"10 días"},{d:25,t:"25 · un cuarto"},{d:50,t:"50 · mitad"},
+    {d:75,t:"75 días"},{d:100,t:"100 días"},{d:9999,t:"Examen B2",exam:true}
+  ];
+
+  var state={done:{},notes:{}};
+
+  function key(dt){return dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate();}
+  function z(dt){return new Date(dt.getFullYear(),dt.getMonth(),dt.getDate());}
+  function fmt(dt){return DOW[dt.getDay()]+" "+dt.getDate()+" "+MON[dt.getMonth()];}
+  function phaseOf(dt){for(var i=0;i<PHASES.length;i++){if(dt<=PHASES[i].to)return PHASES[i];}return PHASES[PHASES.length-1];}
+  function isExam(dt){return key(dt)===key(EXAM)||key(dt)===key(new Date(2026,9,21));}
+  function isMock(dt){return key(dt)===key(new Date(2026,8,13));}
+  function hoursOf(dt){
+    if(isExam(dt))return 0;
+    var t=z(dt).getTime();
+    if(t>=new Date(2026,9,17).getTime())return 2; // taper últimos días
+    var wd=dt.getDay();
+    return (wd===0||wd===6)?5:3;
+  }
+  function specialTag(dt){
+    if(key(dt)===key(EXAM))return {t:"Examen B2",cls:"big"};
+    if(key(dt)===key(new Date(2026,9,21)))return {t:"Examen B1 · plan B",cls:"big"};
+    if(isMock(dt))return {t:"Simulacro",cls:"big"};
+    if(dt.getDay()===2||dt.getDay()===4)return {t:"Tutor",cls:"tutor"};
+    return null;
+  }
+
+  // build day list
+  var days=[];
+  for(var d=new Date(START);d<=END;d=new Date(d.getTime()+DAY)){days.push(new Date(d));}
+  var totalCheck=0; days.forEach(function(dt){ if(!isExam(dt)) totalCheck++; });
+
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function load(cb){
+    try{
+      var raw=localStorage.getItem(KEY);
+      if(raw){var p=JSON.parse(raw);state.done=p.done||{};state.notes=p.notes||{};}
+    }catch(e){}
+    cb();
+  }
+
+  function curLevel(n){var L=LEVELS[0],nx=null;for(var i=0;i<LEVELS.length;i++){if(n>=LEVELS[i].min){L=LEVELS[i];nx=LEVELS[i+1]||null;}}return {L:L,nx:nx};}
+
+  function recompute(){
+    var doneCount=0,hours=0;
+    days.forEach(function(dt){ if(state.done[key(dt)]){doneCount++;hours+=hoursOf(dt);} });
+    // streak
+    var today=z(new Date()), streak=0, cur=new Date(today);
+    if(!state.done[key(cur)]) cur=new Date(cur.getTime()-DAY);
+    while(state.done[key(cur)]){streak++;cur=new Date(cur.getTime()-DAY);}
+    // countdown
+    var left=Math.round((z(EXAM).getTime()-today.getTime())/DAY);
+    var cEl=document.getElementById("count"), csub=document.getElementById("countsub");
+    if(left>0){cEl.textContent=left; if(left<=21)cEl.classList.add("hot");
+      var elapsed=Math.round((today.getTime()-z(START).getTime())/DAY)+1;
+      csub.textContent="Día "+Math.max(1,Math.min(elapsed,totalCheck))+" del sprint · examen mar 20 oct";}
+    else if(left===0){cEl.textContent="0";cEl.classList.add("hot");csub.textContent="¡Hoy es el examen! Bonne chance.";}
+    else {cEl.textContent="✓";csub.textContent="Sprint completado. C'est fini.";}
+
+    document.getElementById("sDone").textContent=doneCount;
+    document.getElementById("sTotal").textContent=totalCheck;
+    document.getElementById("sStreak").textContent=streak;
+    document.getElementById("sHours").textContent=hours;
+    var pct=Math.round(doneCount/totalCheck*100);
+    document.getElementById("sPct").textContent=pct;
+
+    var lv=curLevel(doneCount);
+    document.getElementById("lvlName").textContent=lv.L.name;
+    var fillEl=document.getElementById("lvlFill");
+    if(lv.nx){
+      var p=(doneCount-lv.L.min)/(lv.nx.min-lv.L.min)*100;
+      fillEl.style.width=Math.max(3,Math.min(100,p))+"%";
+      document.getElementById("lvlNext").textContent=(lv.nx.min-doneCount)+" días para "+lv.nx.name;
+    }else{fillEl.style.width="100%";document.getElementById("lvlNext").textContent="Nivel máximo · B2 prêt";}
+
+    var bWrap=document.getElementById("badges");bWrap.innerHTML="";
+    BADGES.forEach(function(b){
+      var on=b.exam?(doneCount>=totalCheck-1):(doneCount>=b.d);
+      var el=document.createElement("span");el.className="badge"+(on?" on":"");el.textContent=b.t;bWrap.appendChild(el);
+    });
+  }
+
+  function render(){
+    var wrap=document.getElementById("weeks");wrap.innerHTML="";
+    document.getElementById("examdate").textContent="20 oct";
+    // group by ISO-ish weeks anchored to START (Monday)
+    var week=null,weekDays=[],weekIdx=0;
+    function flush(){
+      if(!weekDays.length)return;
+      weekIdx++;
+      var ph=phaseOf(weekDays[Math.floor(weekDays.length/2)]);
+      var wk=document.createElement("div");wk.className="week";
+      var head=document.createElement("div");head.className="week-head";
+      head.style.borderLeftColor=ph.c;
+      var f0=weekDays[0],f1=weekDays[weekDays.length-1];
+      var doneN=0;weekDays.forEach(function(dt){if(state.done[key(dt)])doneN++;});
+      head.innerHTML='<span class="wn">Semana '+weekIdx+'</span>'+
+        '<span class="wf">'+ph.name+' — '+ph.focus+'</span>'+
+        '<span class="wdone">'+doneN+'/'+weekDays.length+'</span>';
+      wk.appendChild(head);
+      var box=document.createElement("div");box.className="days";
+      weekDays.forEach(function(dt){box.appendChild(dayRow(dt));});
+      wk.appendChild(box);wrap.appendChild(wk);
+      weekDays=[];
+    }
+    days.forEach(function(dt){
+      var wkNum=Math.floor((z(dt).getTime()-z(START).getTime())/(7*DAY));
+      if(week===null)week=wkNum;
+      if(wkNum!==week){flush();week=wkNum;}
+      weekDays.push(dt);
+    });
+    flush();
+    recompute();
+  }
+
+  function dayRow(dt){
+    var k=key(dt),ph=phaseOf(dt),wd=dt.getDay(),exam=isExam(dt);
+    var row=document.createElement("div");
+    row.className="day"+((wd===0||wd===6)?" weekend":"")+(exam?" exam":"")+(state.done[k]?" done":"");
+    // checkbox
+    var cb=document.createElement("input");cb.type="checkbox";cb.className="cb";cb.checked=!!state.done[k];
+    cb.setAttribute("aria-label","Marcar "+fmt(dt)+" como hecho");
+    if(exam)cb.style.visibility="hidden";
+    cb.addEventListener("change",function(){
+      if(cb.checked)state.done[k]=true;else delete state.done[k];
+      row.classList.toggle("done",cb.checked);save();recompute();
+    });
+    row.appendChild(cb);
+    // date
+    var dEl=document.createElement("div");dEl.className="date";dEl.innerHTML="<b>"+DOW[wd]+" "+dt.getDate()+"</b> "+MON[dt.getMonth()];
+    row.appendChild(dEl);
+    // hours
+    if(!exam){var h=document.createElement("div");h.className="hrs";h.style.background=ph.c;h.textContent=hoursOf(dt)+"h";row.appendChild(h);}
+    // tag
+    var sp=specialTag(dt);
+    if(sp){var tg=document.createElement("div");tg.className="tag "+(sp.cls||"");tg.textContent=sp.t;row.appendChild(tg);}
+    // note
+    var nt=document.createElement("input");nt.className="note";nt.type="text";
+    nt.placeholder=exam?"jour J — bonne chance":"qué toca / qué estudié…";
+    nt.value=state.notes[k]||"";nt.setAttribute("aria-label","Nota de "+fmt(dt));
+    var tmr=null;
+    nt.addEventListener("input",function(){
+      state.notes[k]=nt.value;
+      if(tmr)clearTimeout(tmr);tmr=setTimeout(save,500);
+    });
+    row.appendChild(nt);
+    return row;
+  }
+
+  document.getElementById("motiv").textContent=motivs[Math.floor(Math.random()*motivs.length)];
+  load(render);
+})();
+</script>
